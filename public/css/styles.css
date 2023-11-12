@@ -407,7 +407,50 @@ ul {
   padding: 40%;
   background: none;
 }
+}
 
+#inv-display {
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+ul#inv-display{
+  gap: 10px;
+}
+
+li#inv-display{
+  border: solid black 2px;
+  border-radius: 10px;
+}
+
+#inv-detail{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+/*detailed large view*/
+@media (min-width: 810px) {
 
 }
+
+
+/*detailed medium view*/
+@media (max-width: 768px) {
+
+}
+
+/*detailed small view*/
+@media (max-width: 420px){
+ 
+  #inv-detail{
+    box-sizing: border-box;
+    display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+}
+
+
 

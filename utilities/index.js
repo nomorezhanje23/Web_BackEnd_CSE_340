@@ -99,7 +99,7 @@ Util.buildInventoryGrid = async function(data){
     data.forEach(vehicle => { 
       grid += '<li>'
       grid +=   
-      '<img src="' + vehicle.inv_image 
+      '<img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors">' + '</li>'
       grid += '<li class="flex-detail">' + '<h2>'

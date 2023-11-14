@@ -15,6 +15,7 @@
   #wrapper{
     border: solid 5px skyblue;
     border-radius: 10px;
+    
   }
   
    ul {
@@ -428,6 +429,10 @@ li#inv-display{
   grid-template-columns: 1fr 1fr;
 }
 
+li{
+  padding-left: 25px;
+}
+
 
 /*detailed large view*/
 @media (min-width: 810px) {
@@ -444,7 +449,6 @@ li#inv-display{
 @media (max-width: 420px){
  
   #inv-detail{
-    box-sizing: border-box;
     display: flex;
       flex-direction: column;
       align-items: center;

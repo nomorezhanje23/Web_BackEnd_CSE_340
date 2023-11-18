@@ -63,17 +63,17 @@ Util.buildClassificationGrid = async function(data){
       //opening link for the whole page
  
 grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model +' on CSE Motors" />'
+      + 'details"><img src="' + vehicle.inv_thumbnail +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model +' on CSE Motors"/>'
       '</a>'
       //the image link
 
       grid += '<div class="namePrice">'
       //opening div for the whole section
-      grid += '<hr />'
+      grid += '<hr/>'
       //line break
       grid += '<h2>'
-      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + 'details">' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model +' </a>'
       grid += '</h2>'
       //h2 
       grid += '<span>$'+ new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'

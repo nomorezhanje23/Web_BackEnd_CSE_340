@@ -22,6 +22,11 @@
     margin: 0;
     padding: 0;
   }
+
+  a{
+    text-decoration: none;
+    color: black;
+  }
   
   /* Style the header */
   header {
@@ -411,9 +416,19 @@ ul {
 }
 
 #inv-display {
-  display: flex;
-  justify-content: space-evenly;
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+#inv-display img{
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 ul#inv-display{
   gap: 10px;
@@ -456,5 +471,69 @@ li{
   }
 }
 
+/* FORM */
+
+
+
+h1 {
+  text-align: center;
+}
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: skyblue;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  background-color: skyblue;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: skyblue;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-link {
+  text-decoration: none;
+  color: skyblue;
+}
+
+/*.flash-message {
+  background-color: #FFFFCC;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #CCCC00;
+  border-radius: 5px;
+}*/
+
+.pasi{
+text-align: center;
+padding: 5px;
+margin: 5px;
+
+}
+
+#rese{
+background-color: skyblue;
+padding: 10px;
+border-radius: 10px;
+max-width: 450px;
+margin: 0 auto;
+
+}
 
 

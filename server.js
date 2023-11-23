@@ -15,7 +15,8 @@ const baseController = require("./controllers/baseController");
 const utilities = require("./utilities/index");
 const session = require("express-session");
 const pool = require('./database/');
-
+const bodyParser = require("body-parser")
+const accountController = require("./routes/accountRoute")
 
 /* ***********************
  * Middleware - activity 4
@@ -38,6 +39,10 @@ app.use(function(req, res, next){
   next()
 });
 
+// Unit 4, Process Registration Activity
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 /* *******************************
  * View Engine and Templates
  *************************/
@@ -52,11 +57,12 @@ app.use(require("./routes/static"));
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
-app.use("/inv", require("./routes/inventoryRoute"));
+app.use("/inv", inventoryRoute);
 // Account routes - Unit 4, activity
-app.use("/account", require("./routes/accountRoute"));
+app.use("/account", utilities.handleErrors(accountController));
 // error route - unit 3, activity
-app.use("/account", require("./routes/errorRoute"));
+// app.use("/account", require("./routes/errorRoute"));
+// assignment 4
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

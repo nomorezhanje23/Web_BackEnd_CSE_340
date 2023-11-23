@@ -207,6 +207,7 @@
 @media (max-width: 768px) {
   * {
     background-color: white;}
+    
   
   /* Style the header */
   header {
@@ -448,6 +449,14 @@ li{
   padding-left: 25px;
 }
 
+#inv-detail img{
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
 /*detailed large view*/
 @media (min-width: 810px) {
@@ -492,10 +501,11 @@ label {
 }
 
 input {
-  width: 100%;
+  width:75%;
   padding: 8px;
   margin-bottom: 10px;
   box-sizing: border-box;
+  
 }
 
 button {
@@ -521,19 +531,110 @@ button {
 }*/
 
 .pasi{
-text-align: center;
+background-color: skyblue;
 padding: 5px;
 margin: 5px;
-
 }
 
-#rese{
+.pasi button{
+  border:2px solid #000;
+  border-radius:5px;
+  padding:2px;
+  margin-bottom: 10px;
+  font-size: small;
+  width:30%;
+  text-align: center;
+  color: black;
+  background-color: white;
+}
+
+#rese, .rese1{
 background-color: skyblue;
 padding: 10px;
 border-radius: 10px;
 max-width: 450px;
 margin: 0 auto;
+}
 
+#pswdBtn{
+  border:2px solid #000;
+  border-radius:5px;
+  padding:2px;
+  margin-bottom: 10px;
+  font-size: small;
+  width:30%;
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+
+.pasi p{
+  background-color: skyblue;
+}
+
+/* register */
+
+#pswdBtn1{
+  border:2px solid #000;
+  border-radius:5px;
+  padding:2px;
+  margin: 5px;
+  margin-bottom: 5px;
+  font-size: small;
+  width:30%;
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+
+.pasi1 button{
+  background-color: white;
+  margin: 5px;
+  border:2px solid #000;
+  border-radius:5px;
+  padding:2px;
+  margin-bottom: 10px;
+  font-size: small;
+  width:30%;
+  text-align: center;
+  color: black;
+  
+  
+}
+.pasi1{
+  background-color: skyblue;
+}
+
+.pasi1 p{
+  background-color: skyblue;
+}
+
+.rese2{
+  background-color: white;
+  border:2px solid #000;
+  border-radius:5px;
+  padding:2px;
+  margin-bottom: 10px;
+  font-size: small;
+  width:30%;
+}
+
+
+/*  styles for invalid form input 
+input:required:invalid {
+  background-color: orangered;
+ }*/
+ 
+/*  styles for valid form input */
+input:focus:valid {
+  background-color: greenyellow;
+}
+
+.notice {
+  color: red;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 5px;
 }
 
 

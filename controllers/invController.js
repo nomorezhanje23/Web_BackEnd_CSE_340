@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
+
 const invCont = {}
 
 /* ***************************
@@ -30,6 +31,44 @@ invCont.buildByInventoryId = async function (req, res, next) {
     nav,
     grid,
   })
+}
+
+/* ***************************
+ *  Build inventory management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+      title: "Management",
+      nav,
+      errors: null,
+  })
+}
+
+/* ***************************
+ *  Build add-classification view
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+  })
+}
+
+/* ***************************
+ *  Build add-inventory view
+ * ************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  let classification = await utilities.buildClassificationList()
+  res.render("./inventory/add-inventory", {
+      title: "Add New Inventory",
+      nav,
+      classification,
+      errors: null,
+  })
 }
 
 

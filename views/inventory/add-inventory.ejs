@@ -4,7 +4,7 @@
       res.redirect('/')
     } %>
 
-<%- messages() %>
+<%= messages() %>
 
 <% if (errors) { %>
     <ul class="notice">
@@ -18,7 +18,7 @@
     <fieldset>
         <p>ALL FIELDS ARE REQUIRED</p>
         <label for="classification_id">Classification</label>
-        
+
         <%- classification %>
 
         <label for="inv_make">Make</label>

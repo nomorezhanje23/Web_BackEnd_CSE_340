@@ -61,7 +61,7 @@ app.use("/inv", inventoryRoute);
 // Account routes - Unit 4, activity
 app.use("/account", utilities.handleErrors(accountController));
 // error route - unit 3, activity
-// app.use("/account", require("./routes/errorRoute"));
+app.use("/account", require("./routes/errorRoute"));
 // assignment 4
 
 // File Not Found Route - must be last route in list

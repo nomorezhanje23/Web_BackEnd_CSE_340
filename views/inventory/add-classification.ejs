@@ -4,7 +4,7 @@
       res.redirect('/')
     } %>
 
-<%- messages() %>
+<%= messages() %>
 
 <% if (errors) { %>
     <ul class="notice">
@@ -14,7 +14,7 @@
    </ul>
   <% } %>
 
-  <form class="account-form" action="/add-classification" method="post">
+  <form class="account-form" action="/inv/add-classification" method="post">
     <fieldset>
       <div class="form-group">
         <label for="classification_name">Add New Classification:</label>

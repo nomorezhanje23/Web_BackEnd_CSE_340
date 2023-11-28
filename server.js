@@ -62,7 +62,8 @@ app.use("/inv", inventoryRoute);
 app.use("/account", utilities.handleErrors(accountController));
 // error route - unit 3, activity
 app.use("/account", require("./routes/errorRoute"));
-// assignment 4
+// assignment 4 add-classification
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

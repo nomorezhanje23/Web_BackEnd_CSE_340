@@ -71,5 +71,84 @@ invCont.buildAddInventory = async function (req, res, next) {
   })
 }
 
+/* ****************************************
+*  Process add-classsification
+* *************************************** */
+invCont.addClassification = async function(req, res) {
+  // let nav = await utilities.getNav()
+  const { classification_name } = req.body
+  console.log("Received data:", classification_name);
+  
+  const addResult = await invModel.addNewClassification(
+    classification_name,
+    )
+    
+    let nav = await utilities.getNav()
+  console.log("Result from addNewClassification:", addResult);
+
+  if (addResult) {
+    req.flash(
+      "notice",
+      "New classification added successfully"
+    )
+    res.status(201).render("./inventory/management",{
+      title:"Management",
+      nav,
+      errors:null,
+    })
+  } else {
+    req.flash("notice", "Sorry, add new classification failed.")
+    res.status(501).render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+    })
+  }
+}
+
+/* ****************************************
+*  Process add inventory
+* *************************************** */
+
+
+invCont.addInventory = async function (req, res) {
+  const { classification_name, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_miles, inv_color } = req.body
+
+  console.log("Received data:", classification_name, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_miles, inv_color);
+
+  const addResult = await invModel.addNewInventory(
+    classification_name, 
+    inv_make, 
+    inv_model, 
+    inv_description, 
+    inv_image, 
+    inv_thumbnail, 
+    inv_year, 
+    inv_miles, 
+    inv_color
+  )
+
+  let nav = await utilities.getNav()
+  console.log("Result from addNewInventory:", addResult);
+  
+
+
+  if (addResult) {
+    req.flash(
+      "notice",
+      "New inventory item added successfully"
+    )
+    res.status(201).render("./inventory/management",{
+      title:"Management",
+      nav,
+      errors:null,
+    })
+  }  else {
+    req.flash("notice", "Sorry, add new inventory failed.")
+    res.status(501).render("./inventory/add-inventory", {
+      title: "Add New Inventory",
+      nav,
+    })
+  }
+}
 
 module.exports = invCont

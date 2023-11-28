@@ -492,6 +492,8 @@ form {
   max-width: 400px;
   margin: 0 auto;
   background-color: skyblue;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 label {
@@ -505,6 +507,7 @@ input {
   padding: 8px;
   margin-bottom: 10px;
   box-sizing: border-box;
+  margin: 5px;
   
 }
 
@@ -616,7 +619,8 @@ margin: 0 auto;
   padding:2px;
   margin-bottom: 10px;
   font-size: small;
-  width:30%;
+  width:50%;
+  text-align: center;
 }
 
 
@@ -636,5 +640,7 @@ input:focus:valid {
   margin-left: 15px;
   padding: 5px;
 }
+
+
 
 

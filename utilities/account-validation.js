@@ -70,5 +70,71 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
+
+  /*  **********************************
+ *  Login Data Validation Rules
+ * ********************************* */
+validate.loginRules = () => {
+  return [
+      // email is required and must be an existing user's email
+      body("account_email")
+      .trim()
+      .isEmail() // refer to validator.js docs for additional options and default settings
+      .normalizeEmail() // refer to validator.js docs for default settings and options
+      .withMessage("A valid email is required")
+      .custom(async (account_email) => {
+          const emailExists = await accountModel.checkExistingEmail(account_email)
+          if (!emailExists){
+              throw new Error('Invalid Email')
+          }
+      }),
+
+      // password is required and must be a strong password
+      body("account_password")
+      .trim()
+      .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password does not meet requirements."),
+        // .custom(async (account_password) => {
+        //     const passwordExists = await accountModel.checkExistingPassword(account_password)
+        //     if (!passwordExists){
+        //         throw new Error('Password not correct')
+        //     }
+        // }),
+        // .custom(async (account_password) => {
+        //     const passwordExists = await accountModel.checkExistingPassword(account_password)
+        //     if (!passwordExists){
+        //         throw new Error('Password not correct')
+        //     }
+        // }),
+
+    ]
+}
+
+/* ******************************
+ * Check login data and return errors or continue to login
+ * ***************************** */
+validate.checkLoginData = async (req, res, next) => {
+  const { account_email } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      res.render("account/login", {
+          errors,
+          title: "Log In",
+          nav,
+          account_email,
+      })
+      return
+  }
+    next()
+}
+
   
   module.exports = validate

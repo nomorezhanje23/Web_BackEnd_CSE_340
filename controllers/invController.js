@@ -1,13 +1,10 @@
-const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
-
-
-const invCont = {}
+const invModel = require("../models/inventory-model")
 
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
-invCont.buildByClassificationId = async function (req, res, next) {
+ async function buildByClassificationId(req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
@@ -20,7 +17,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
-invCont.buildByInventoryId = async function (req, res, next) {
+ async function buildByInventoryId(req, res, next) {
   const inv_id = req.params.inventoryId
   const data = await invModel.getInventoryByInventoryId(inv_id)
   const grid = await utilities.buildInventoryGrid(data)
@@ -36,7 +33,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
 /* ***************************
  *  Build inventory management view
  * ************************** */
-invCont.buildManagement = async function (req, res, next) {
+ async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
   res.render("./inventory/management", {
       title: "Management",
@@ -48,7 +45,7 @@ invCont.buildManagement = async function (req, res, next) {
 /* ***************************
  *  Build add-classification view
  * ************************** */
-invCont.buildAddClassification = async function (req, res, next) {
+ async function buildAddClassification(req, res, next) {
   let nav = await utilities.getNav()
   res.render("./inventory/add-classification", {
       title: "Add New Classification",
@@ -60,7 +57,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 /* ***************************
  *  Build add-inventory view
  * ************************** */
-invCont.buildAddInventory = async function (req, res, next) {
+ async function buildAddInventory(req, res, next) {
   let nav = await utilities.getNav()
   let classification = await utilities.buildClassificationList()
   res.render("./inventory/add-inventory", {
@@ -74,7 +71,7 @@ invCont.buildAddInventory = async function (req, res, next) {
 /* ****************************************
 *  Process add-classsification
 * *************************************** */
-invCont.addClassification = async function(req, res) {
+ async function addClassification(req, res) {
   // let nav = await utilities.getNav()
   const { classification_name } = req.body
   console.log("Received data:", classification_name);
@@ -110,12 +107,20 @@ invCont.addClassification = async function(req, res) {
 * *************************************** */
 
 
-invCont.addInventory = async function (req, res) {
-  const { classification_name, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_miles, inv_color } = req.body
+ async function addInventory(req, res) {
+  let nav = await utilities.getNav()
+  const { 
+    classification_name, 
+    inv_make, inv_model, 
+    inv_description, 
+    inv_image, 
+    inv_thumbnail, 
+    inv_year, 
+    inv_miles, 
+    inv_color,
+  } = req.body
 
-  console.log("Received data:", classification_name, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_miles, inv_color);
-
-  const addResult = await invModel.addNewInventory(
+  const addResult = await invModel.addInventory(
     classification_name, 
     inv_make, 
     inv_model, 
@@ -126,11 +131,6 @@ invCont.addInventory = async function (req, res) {
     inv_miles, 
     inv_color
   )
-
-  let nav = await utilities.getNav()
-  console.log("Result from addNewInventory:", addResult);
-  
-
 
   if (addResult) {
     req.flash(
@@ -148,7 +148,7 @@ invCont.addInventory = async function (req, res) {
       title: "Add New Inventory",
       nav,
     })
-  }
+ }
 }
 
-module.exports = invCont
+module.exports = { buildByClassificationId, buildByInventoryId, buildManagement, buildAddClassification, buildAddInventory, addClassification, addInventory   }

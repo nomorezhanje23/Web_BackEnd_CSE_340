@@ -21,7 +21,7 @@ validate.additionRules = () => {
       body("inv_description")
         .trim()
         .isLength({ min: 3 })
-        .withMessage("Please fill out the description field & Select classification of choice!"), // on error this message is sent.
+        .withMessage("Please fill out the description field"), // on error this message is sent.
 
         // image, is required and must be string
       body("inv_image")
@@ -132,6 +132,49 @@ validate.checkclassData = async (req, res, next) => {
   }
   next()
 } 
+
+// Validation for inv_description
+validate.descriptionValidation = body("inv_description")
+  .trim()
+  .isLength({ min: 3 })
+  .withMessage("Please fill out the description field");
+
+// Fetch dropdown options
+validate.dropdownOptions = async (classification_id) => {
+  try {
+    const dropdown = await getdropdown(classification_id);
+    return dropdown;
+  } catch (error) {
+    // Handle error fetching dropdown (e.g., log or return default options)
+    console.error("Error fetching dropdown:", error);
+    return '<option value="">Default Option</option>';
+  }
+};
+
+// Validation and fetching dropdown options middleware
+validate.validateAndFetchDropdown = async (req, res, next) => {
+  const { classification_id } = req.body;
+
+  // Run the description validation
+  await descriptionValidation(req, res, async (error) => {
+    if (error) {
+      // If there are validation errors, pass a default dropdown to the locals
+      res.locals.dropdown = '<option value="">Default Option</option>';
+      return next();
+    }
+
+    // If validation passes, fetch the actual dropdown options
+    try {
+      res.locals.dropdown = await dropdownOptions(classification_id);
+    } catch (fetchError) {
+      // Handle error fetching dropdown (e.g., log or return default options)
+      console.error("Error fetching dropdown:", fetchError);
+      res.locals.dropdown = '<option value="">Default Option</option>';
+    }
+
+    return next();
+  });
+};
 
 
 

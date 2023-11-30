@@ -17,7 +17,10 @@ router.get("/add-classification", utilities.handleErrors(invController.buildAddC
 // Route to build add-inventory view
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
 // add classification
-router.post("/add-classification", utilities.handleErrors(invController.addClassification))
+router.post("/add-classification", 
+addValidate.classadditionRules(),
+addValidate.checkclassData,
+utilities.handleErrors(invController.addClassification))
 
 /*   *******************************************************
  *  Process Registration

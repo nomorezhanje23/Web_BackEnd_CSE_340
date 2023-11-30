@@ -641,6 +641,8 @@ input:focus:valid {
   padding: 5px;
 }
 
-
+#classification_id{
+  position: sticky;
+}
 
 

@@ -36,7 +36,7 @@ const invModel = require("../models/inventory-model")
  async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
   res.render("./inventory/management", {
-      title: "Management",
+      title: "Vehicle Management",
       nav,
       errors: null,
   })
@@ -61,7 +61,7 @@ const invModel = require("../models/inventory-model")
   let nav = await utilities.getNav()
   let classification = await utilities.buildClassificationList()
   res.render("./inventory/add-inventory", {
-      title: "Add New Inventory",
+      title: "Add Vehicle",
       nav,
       classification,
       errors: null,
@@ -86,10 +86,10 @@ const invModel = require("../models/inventory-model")
   if (addResult) {
     req.flash(
       "notice",
-      "New classification added successfully"
+      "New classification " + `${classification_name}` + " has been added successfully"
     )
     res.status(201).render("./inventory/management",{
-      title:"Management",
+      title:"Vehicle Management",
       nav,
       errors:null,
     })
@@ -110,35 +110,24 @@ const invModel = require("../models/inventory-model")
  async function addInventory(req, res) {
   let nav = await utilities.getNav()
   const { 
-    classification_name, 
-    inv_make, inv_model, 
-    inv_description, 
-    inv_image, 
-    inv_thumbnail, 
-    inv_year, 
-    inv_miles, 
-    inv_color,
+    inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, 
+    inv_price, inv_miles , inv_color, classification_id
   } = req.body
 
+  console.log("This is classification name", classification_id)
+
   const addResult = await invModel.addInventory(
-    classification_name, 
-    inv_make, 
-    inv_model, 
-    inv_description, 
-    inv_image, 
-    inv_thumbnail, 
-    inv_year, 
-    inv_miles, 
-    inv_color
+    inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, 
+    inv_price, inv_miles , inv_color, classification_id
   )
 
   if (addResult) {
     req.flash(
       "notice",
-      "New inventory item added successfully"
+      "The " + `${inv_make} ` +  ` ${inv_model}` + " was successfully added"
     )
     res.status(201).render("./inventory/management",{
-      title:"Management",
+      title:"Vehicle Management",
       nav,
       errors:null,
     })

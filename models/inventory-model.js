@@ -56,9 +56,13 @@ async function getInventoryByClassificationId(classification_id) {
  *  Add new inventory to the database
  * ****************************************** */
 
-  async function addInventory( inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id, inv_id) {
-    try { const sql = "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
-      const data = await pool.query(sql, [ inv_make, inv_model, inv_description, inv_image, inv_thumbnail,    inv_price, inv_year, inv_miles, inv_color, classification_id, inv_id ])
+  async function addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, 
+    inv_price, inv_miles , inv_color, classification_id ) { 
+      //testing t the terminal
+      console.log("Model when called", inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id)
+    try { const sql = "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING *;"
+      const data = await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id ])
+      console.log("This is database answer", data)
       return data.rows[0]
     } catch (error) {
       //console.error("model error: " + error)
@@ -66,4 +70,17 @@ async function getInventoryByClassificationId(classification_id) {
     }
   }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addNewClassification, addInventory}
+   /* **********************
+ *   Check for classification name
+ * ********************* */
+//async function checkExistingName(){
+  //try {
+    //const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    //const name = await pool.query(sql, [classification_name])
+    //return name.rowCount
+ // } catch (error) {
+   // return error.message
+  //}
+//}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addNewClassification, addInventory }//checkExistingName

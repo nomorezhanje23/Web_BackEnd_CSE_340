@@ -22,8 +22,8 @@ router.get("/getInventory/:classification_id",
 
 // add classification ------------------------------------------------------undo here
 router.post("/add-classification", 
-// addValidate.classadditionRules(),
-// addValidate.checkclassData,
+ addValidate.classadditionRules(),
+ addValidate.checkclassData,
  utilities.handleErrors(invController.addClassification))
 
 /*   *******************************************************
@@ -34,8 +34,8 @@ router.post("/add-classification",
 // Process the registration data--------------------------------------------undo here
 router.post(
     "/add-inventory",
-//     addValidate.additionRules(),
-//     addValidate.checkAddData,
+    addValidate.additionRules(),
+    addValidate.checkAddData,
     utilities.handleErrors(invController.addInventory)
  )
 

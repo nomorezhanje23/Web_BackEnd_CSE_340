@@ -20,26 +20,28 @@ router.get("/add-inventory", utilities.handleErrors(invController.buildAddInvent
 router.get("/getInventory/:classification_id", 
   utilities.handleErrors(invController.getInventoryJSON))
 
-// add classification
+// add classification ------------------------------------------------------undo here
 router.post("/add-classification", 
-addValidate.classadditionRules(),
-addValidate.checkclassData,
-utilities.handleErrors(invController.addClassification))
+// addValidate.classadditionRules(),
+// addValidate.checkclassData,
+ utilities.handleErrors(invController.addClassification))
 
 /*   *******************************************************
  *  Process Registration
  *  Unit 4, Process registration activity
  *   ****************************************************/
 
-// Process the registration data
+// Process the registration data--------------------------------------------undo here
 router.post(
     "/add-inventory",
-    addValidate.additionRules(),
-    addValidate.checkAddData,
+//     addValidate.additionRules(),
+//     addValidate.checkAddData,
     utilities.handleErrors(invController.addInventory)
-  )
+ )
 
-// Route to process the add new classification data and send data to the database
+
+
+// Route to process the add new classification data and send data to the database (Siya so don't chanje anything)
 // router.post(
 //     "/add-classification",
 //     invValidate.classificationRules(),

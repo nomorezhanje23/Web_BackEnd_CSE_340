@@ -9,13 +9,13 @@ validate.additionRules = () => {
       body("inv_make")
         .trim()
         .isLength({ min: 3 })
-        .withMessage("Please fill out the make field & Select classification of choice!"), // on error this message is sent.
+        .withMessage("Please fill out the make field"), // on error this message is sent.
   
       // model is required and must be string
       body("inv_model")
         .trim()
         .isLength({ min: 3 })
-        .withMessage("Please fill out the model field & Select classification of choice!"), // on error this message is sent.
+        .withMessage("Please fill out the model field"), // on error this message is sent.
 
       // description, is required and must be string
       body("inv_description")
@@ -27,13 +27,13 @@ validate.additionRules = () => {
       body("inv_image")
       .trim()
       .isLength({ min: 3 })
-      .withMessage("Please fill out the image field of your choice & Select classification of choice!"), // on error this message is sent.
+      .withMessage("Please fill out the image field of your choice"), // on error this message is sent.
 
      // inv_thumbnail, is required and must be string
      body("inv_thumbnail")
      .trim()
      .isLength({ min: 3 })
-     .withMessage("Please fill out the image_thumbnail field of your choice & Select classification of choice!"), // on error this message is sent.
+     .withMessage("Please fill out the image_thumbnail field of your choice"), // on error this message is sent.
 
     // inv_price, is required and must be string
     body("inv_price")
@@ -41,25 +41,25 @@ validate.additionRules = () => {
     .custom(value => /^\d+(\.\d+)?$/.test(value))
     .withMessage('Invalid number format')
     .isLength({ min: 3 })
-    .withMessage("Price field: Whole and decimal numbers only, no spaces & Select classification of choice!"), // on error this message is sent.
+    .withMessage("Price field: Whole and decimal numbers only, no spaces"), // on error this message is sent.
 
     // inv_year, is required and must be string
     body("inv_year")
     .trim()
     .isLength({ min: 3 })
-    .withMessage("Please fill out the year field & Select classification of choice!"), // on error this message is sent.
+    .withMessage("Please fill out the year field!"), // on error this message is sent.
 
     // inv_miles, is required and must be integer
     body("inv_miles")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Miles field: Whole numbers only, no spaces & decimals. Select classification of choice!"), // on error this message is sent.
+    .withMessage("Miles field: Whole numbers only, no spaces & decimals."), // on error this message is sent.
 
     // description, is required and must be string
     body("inv_color")
     .trim()
     .isLength({ min: 3 })
-    .withMessage("Please fill out the color field & Select classification of choice!"), // on error this message is sent.
+    .withMessage("Please fill out the color field"), // on error this message is sent.
     ]
   }
 

@@ -23,6 +23,15 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 /*   *******************************************************
+ *  Deliver Account Management view
+ *  Unit 5, deliver management view activity
+ *   *************************************************** */
+
+router.get("/",
+utilities.checkLogin,
+utilities.handleErrors(accountController.buildAccountManagement))
+
+/*   *******************************************************
  *  Process Registration
  *  Unit 4, Process registration activity
  *   ****************************************************/
@@ -36,11 +45,13 @@ router.post(
   )
 
 
-
+//Process the Log in
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin))
+
+  
 
 module.exports = router;

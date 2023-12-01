@@ -1,6 +1,7 @@
 const utilities = require("../utilities/")
 const invModel = require("../models/inventory-model")
 
+
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
@@ -35,10 +36,12 @@ const invModel = require("../models/inventory-model")
  * ************************** */
  async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
   res.render("./inventory/management", {
       title: "Vehicle Management",
       nav,
       errors: null,
+      classificationSelect,
   })
 }
 
@@ -140,4 +143,17 @@ const invModel = require("../models/inventory-model")
  }
 }
 
-module.exports = { buildByClassificationId, buildByInventoryId, buildManagement, buildAddClassification, buildAddInventory, addClassification, addInventory   }
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+async function getInventoryJSON (req, res, next) {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+module.exports = { getInventoryJSON, buildByClassificationId, buildByInventoryId, buildManagement, buildAddClassification, buildAddInventory, addClassification, addInventory }

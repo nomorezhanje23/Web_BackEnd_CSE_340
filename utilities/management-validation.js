@@ -49,10 +49,10 @@ validate.additionRules = () => {
     .isLength({ min: 3 })
     .withMessage("Please fill out the year field & Select classification of choice!"), // on error this message is sent.
 
-    // inv_miles, is required and must be string
+    // inv_miles, is required and must be integer
     body("inv_miles")
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 1 })
     .withMessage("Miles field: Whole numbers only, no spaces & decimals. Select classification of choice!"), // on error this message is sent.
 
     // description, is required and must be string
@@ -71,10 +71,11 @@ validate.checkAddData = async (req, res, next) => {
       inv_price, inv_miles , inv_color, classification_id } = 
     req.body
     let errors = []
+    console.log("inv_description", inv_description) // here we are puting the actual variable which will tell us if we are getting the info right before we pass it to the view
     errors = validationResult(req)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav() 
-      let classification = await utilities.buildClassificationList()
+      let classification = await utilities.buildClassificationList(classification_id)
       res.render("./inventory/add-inventory", {
         errors,
         title: "Add New Inventory",
@@ -132,50 +133,5 @@ validate.checkclassData = async (req, res, next) => {
   }
   next()
 } 
-
-// Validation for inv_description
-validate.descriptionValidation = body("inv_description")
-  .trim()
-  .isLength({ min: 3 })
-  .withMessage("Please fill out the description field");
-
-// Fetch dropdown options
-validate.dropdownOptions = async (classification_id) => {
-  try {
-    const dropdown = await getdropdown(classification_id);
-    return dropdown;
-  } catch (error) {
-    // Handle error fetching dropdown (e.g., log or return default options)
-    console.error("Error fetching dropdown:", error);
-    return '<option value="">Default Option</option>';
-  }
-};
-
-// Validation and fetching dropdown options middleware
-validate.validateAndFetchDropdown = async (req, res, next) => {
-  const { classification_id } = req.body;
-
-  // Run the description validation
-  await descriptionValidation(req, res, async (error) => {
-    if (error) {
-      // If there are validation errors, pass a default dropdown to the locals
-      res.locals.dropdown = '<option value="">Default Option</option>';
-      return next();
-    }
-
-    // If validation passes, fetch the actual dropdown options
-    try {
-      res.locals.dropdown = await dropdownOptions(classification_id);
-    } catch (fetchError) {
-      // Handle error fetching dropdown (e.g., log or return default options)
-      console.error("Error fetching dropdown:", fetchError);
-      res.locals.dropdown = '<option value="">Default Option</option>';
-    }
-
-    return next();
-  });
-};
-
-
 
   module.exports = validate

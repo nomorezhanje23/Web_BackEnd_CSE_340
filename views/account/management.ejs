@@ -1,0 +1,20 @@
+<%# Unit 5 Assignment %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <p>You're logged in.</p>
+
+<a href="" title="Click to edit account information">Edit Account Information</a>

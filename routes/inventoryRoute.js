@@ -16,6 +16,10 @@ router.get("/add-classification", utilities.handleErrors(invController.buildAddC
 // router.get("/add-classification", invController.buildAddClassification);
 // Route to build add-inventory view
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+//Process the Json data
+router.get("/getInventory/:classification_id", 
+  utilities.handleErrors(invController.getInventoryJSON))
+
 // add classification
 router.post("/add-classification", 
 addValidate.classadditionRules(),
@@ -34,7 +38,6 @@ router.post(
     addValidate.checkAddData,
     utilities.handleErrors(invController.addInventory)
   )
-
 
 // Route to process the add new classification data and send data to the database
 // router.post(

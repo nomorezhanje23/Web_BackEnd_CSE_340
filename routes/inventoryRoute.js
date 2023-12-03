@@ -21,8 +21,13 @@ router.get("/getInventory/:classification_id",
   //utilities.checkAccountType,
   utilities.handleErrors(invController.getInventoryJSON))
 
-//eoute to edit inventory items
+//route to edit inventory items
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+//route to delete
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView))
+
+
+
 
 // add classification 
 router.post("/add-classification", 
@@ -42,12 +47,18 @@ router.post(
     addValidate.checkAddData,
     utilities.handleErrors(invController.addInventory)
  )
+//produces the view
+//  router.post(
+//   "/edit",
+//  addValidate.additionRules(),
+//  addValidate.checkAddData, 
+//  utilities.handleErrors(invController.editInventoryView))
 
- router.post(
-  "/update",
- addValidate.additionRules(),
- addValidate.checkAddData, 
- utilities.handleErrors(invController.editInventoryView))
+ //updating router
+ router.post("/update/",
+ addValidate.UpdateRules(),
+ addValidate.checkUpdateData,
+ utilities.handleErrors(invController.updateInventory))
 
 
 

@@ -56,10 +56,9 @@ async function getInventoryByClassificationId(classification_id) {
  *  Add new inventory to the database
  * ****************************************** */
 
-  async function addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, 
-    inv_price, inv_miles , inv_color, classification_id ) { 
+  async function addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id ) { 
       //testing t the terminal
-      console.log("Model when called", inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id)
+     // console.log("Model when called", inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id)
     try { const sql = "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING *;"
       const data = await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id ])
       console.log("This is database answer", data)
@@ -69,6 +68,22 @@ async function getInventoryByClassificationId(classification_id) {
       return error.message
     }
   }
+
+  /* **********************
+ *  This updates the vehicle
+ * ********************* */
+  async function editInventoryView( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id, inv_id ) { 
+    //testing t the terminal
+   // console.log("Model when called", inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id)
+  try { const sql = "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_year = $3, inv_description = $4 , inv_image = $5 , inv_thumbnail = $6, inv_price = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id =$11 RETURNING *;"
+    const data = await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles , inv_color, classification_id,  inv_id  ])
+    console.log("This is database answer", data)
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+    return error.message
+  }
+}
 
    /* **********************
  *   Check for classification name
@@ -83,4 +98,4 @@ async function getInventoryByClassificationId(classification_id) {
   //}
 //}
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addNewClassification, addInventory }//checkExistingName
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addNewClassification, addInventory, editInventoryView  }//checkExistingName

@@ -18,9 +18,13 @@ router.get("/add-classification", utilities.handleErrors(invController.buildAddC
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
 //Process the Json data
 router.get("/getInventory/:classification_id", 
+  //utilities.checkAccountType,
   utilities.handleErrors(invController.getInventoryJSON))
 
-// add classification ------------------------------------------------------undo here
+//eoute to edit inventory items
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+
+// add classification 
 router.post("/add-classification", 
  addValidate.classadditionRules(),
  addValidate.checkclassData,
@@ -31,13 +35,19 @@ router.post("/add-classification",
  *  Unit 4, Process registration activity
  *   ****************************************************/
 
-// Process the registration data--------------------------------------------undo here
+// Process the registration data
 router.post(
     "/add-inventory",
     addValidate.additionRules(),
     addValidate.checkAddData,
     utilities.handleErrors(invController.addInventory)
  )
+
+ router.post(
+  "/update",
+ addValidate.additionRules(),
+ addValidate.checkAddData, 
+ utilities.handleErrors(invController.editInventoryView))
 
 
 

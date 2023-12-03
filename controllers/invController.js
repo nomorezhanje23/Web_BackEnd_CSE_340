@@ -36,12 +36,12 @@ const invModel = require("../models/inventory-model")
  * ************************** */
  async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
-  const classificationSelect = await utilities.buildClassificationList()
+  const classification = await utilities.buildClassificationList()
   res.render("./inventory/management", {
       title: "Vehicle Management",
       nav,
       errors: null,
-      classificationSelect,
+      classification,
   })
 }
 
@@ -156,4 +156,32 @@ async function getInventoryJSON (req, res, next) {
   }
 }
 
-module.exports = { getInventoryJSON, buildByClassificationId, buildByInventoryId, buildManagement, buildAddClassification, buildAddInventory, addClassification, addInventory }
+/* ***************************
+ *  Build edit inventory view
+ * ************************** */
+async function editInventoryView (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  const itemData = await invModel.getInventoryByInventoryId(inv_id)
+  const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/edit-inventory", {
+    title: "Edit " + itemName,
+    nav,
+    classificationSelect: classificationSelect,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id
+  })
+}
+
+module.exports = { getInventoryJSON, buildByClassificationId, buildByInventoryId, buildManagement, buildAddClassification, buildAddInventory, addClassification, addInventory, editInventoryView  }

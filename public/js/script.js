@@ -10,4 +10,3 @@ pswdBtn.addEventListener("click", function() {
     pswdBtn.innerHTML = "Show Password";
   }
 })
-

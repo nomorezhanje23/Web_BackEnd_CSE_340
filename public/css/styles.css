@@ -645,4 +645,32 @@ input:focus:valid {
   position: sticky;
 }
 
+/* manage
+
+.management a {
+  padding: .7em;
+  margin: 2em;
+  text-decoration: none;
+   text-align: center; 
+  font-size: 1.2em;
+  color: black;
+}
+
+ .management {
+  padding: 1em;
+  margin-top: -2em;
+  margin-bottom: -2em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+} */
+
+.pswrdchange
+{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
 

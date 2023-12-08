@@ -99,6 +99,7 @@ validate.loginRules = () => {
           minNumbers: 1,
           minSymbols: 1,
         })
+        .whitelist(/^[0-9a-zA-Z?!.*@]*$/)
         .withMessage("Password does not meet requirements."),
         // .custom(async (account_password) => {
         //     const passwordExists = await accountModel.checkExistingPassword(account_password)
@@ -136,5 +137,74 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
-  
+/* ******************************
+ updating rules for the account
+ * ***************************** */
+
+ validate.updateAccountRules = () => {
+  return [
+    // firstname is required and must be string
+    body("account_firstname")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a first name."), 
+    // lastname is required and must be string
+    body("account_lastname")
+      .trim()
+      .isLength({ min: 2 })
+      .withMessage("Please provide a last name."), 
+
+    // valid email is required and cannot already exist in the DB
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail() 
+      .withMessage("A valid email is required."),
+  ]
+}
+
+
+/* ******************************
+ checking if it has followed instruction either error or procced
+ * ***************************** */
+
+validate.checkEditAccountData = async (req, res, next) => {
+  let nav = await utilities.getNav()
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+  const account = await accountModel.getAccountById(account_id)
+  if (account_email != account.account_email) {
+    const emailExists = await accountModel.checkExistingEmail(account_email)
+    if (emailExists){
+      throw new Error("Email exists. Please log in or use different email")
+    }
+  }
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    res.render("./account/edit-account", {
+      errors,
+      title: "Edit Account Information",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+    return
+  }
+  next()
+}
+
+/*  **********************************
+ *  Password change Validation Rules
+ * ********************************* */
+validate.changePasswordRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[?!.*@])[A-Za-z\d?!.*@]{12,}$/)
+      .withMessage("Password does not meet requirements."),
+  ]
+}
+
+
   module.exports = validate

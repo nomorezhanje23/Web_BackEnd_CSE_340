@@ -51,7 +51,31 @@ router.post(
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin))
+//Assignment 5
 
-  
+router.get(
+  "/logout",
+  utilities.handleErrors(accountController.logoutAccount)
+)
+
+router.get(
+  "/edit/:account_id",
+  utilities.handleErrors(accountController.buildEditAccount)
+)
+
+router.post(
+  "/accountupdate",
+  regValidate.updateAccountRules(),
+  regValidate.checkEditAccountData,
+  utilities.handleErrors(accountController.editAccountInformation)
+)
+
+
+router.post(
+  "/changepassword",
+  regValidate.changePasswordRules(),
+  regValidate.checkEditAccountData,
+  utilities.handleErrors(accountController.editAccountPassword)
+)
 
 module.exports = router;

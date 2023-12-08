@@ -19,7 +19,7 @@
     <form action="/inv/edit" method="post" id="updateForm" >
             <div class="rese2"><i>All fields are required!</i> </div>
           <br>
-            <label for="classification_id">Classification</label>
+            <label for="classification_id">Classification <%# locals.accountData.account_firstname %></label>
     
             <%- classificationSelect %>
     

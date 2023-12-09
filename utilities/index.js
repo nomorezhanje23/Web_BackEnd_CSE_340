@@ -190,40 +190,26 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
-
-Util.checkAccount = (req, res, next) => {
-  if (req.cookies.jwt) {
-    jwt.verify(
-      req.cookies.jwt,
-      process.env.ACCESS_TOKEN_SECRET,
-      function (err, accountData) {
-        if (err) {
-          req.flash("Please log in");
-          res.clearCookie("jwt");
-          return res.redirect("/account/login");
-        }
-
-        // Assign account data to locals
-        res.locals.accountData = accountData;
-        res.locals.loggedin = 1;
-
-        // Check if the account type is "Employee" or "Admin"
-        if (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin") {
-          // Proceed to the next middleware or route
-          return next();
-        } else {
-          // Redirect to login with an error message
-          req.flash("notice", "Unauthorized access.");
-          return res.redirect("/account/login");
-        }
-      }
-    );
+ Util.checkAccount = (req, res, next) => {
+  // Check if the user is logged in
+  if (res.locals.loggedin) {
+    // Check if the account type is "Employee" or "Admin"
+    if (
+      res.locals.accountData.account_type === "Employee" ||
+      res.locals.accountData.account_type === "Admin"
+    ) {
+      // User has the correct account type, proceed to the next middleware
+      next();
+    } else {
+      req.flash("notice", "Insufficient privileges.")
+      return res.redirect("/account/login")
+    }
   } else {
-    req.flash("notice", "Please log in.");
-    return res.redirect("/account/login");
+    // User is not logged in, redirect to login page
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
   }
-};
-
+}
 
 
 module.exports = Util

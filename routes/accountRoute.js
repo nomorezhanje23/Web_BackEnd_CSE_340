@@ -80,11 +80,5 @@ router.post(
   utilities.handleErrors(accountController.editAccountPassword)
 )
 
-
-router.use(utilities.checkAccount)
-
-router.get('/inv'), (req, res) => {
- res.render("./inventory/management")
-}
 module.exports = router;
 

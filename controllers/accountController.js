@@ -39,7 +39,7 @@ async function buildRegister(req, res, next) {
  * ************************** */
 async function buildAccountManagement(req, res, next) {
   let nav = await utilities.getNav()
-  res.render("/account/management", {
+  res.render("./account/management", {
       title: "Account Management",
       nav,
       errors: null,
@@ -173,14 +173,15 @@ async function editAccountInformation(req, res) {
     res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
 
     req.flash("success", `Congratulations, ${account_firstname} your information has been updated`)
-    res.status(201).render("/account/", {
-      title: "Account Management",
-      nav,
-      errors:null,
-      account_firstname,
-      account_lastname,
-      account_email,
-    })
+    return res.redirect("/account/");
+    // res.status(201).render("/account/", {
+    //   title: "Account Management",
+    //   nav,
+    //   errors:null,
+    //   account_firstname,
+    //   account_lastname,
+    //   account_email,
+   // })
   } else {
     req.flash("error", "Sorry, the update failed.")
     res.status(501).render("account/edit-account", {
@@ -217,13 +218,14 @@ async function editAccountPassword(req, res) {
   
   if (regResult) {
     const account = await accountModel.getAccountById(account_id)
-    req.flash("success", `Congratulations, ${account.account_firstname} your account has been updated successfully.`)
-    res.status(201).render("/account/", {
-      title: "Account Management",
-      nav,
-      errors:null,
-      account_firstname: account.account_firstname,
-    })
+    req.flash("success", `Congratulations, ${account.account_firstname} your Password has been updated successfully.`)
+    return res.redirect("/account/");
+    // res.status(201).render("/account/", {
+    //   title: "Account Management",
+    //   nav,
+    //   errors:null,
+    //   account_firstname: account.account_firstname,
+    // })
   } else {
     
     req.flash("error", "Sorry, the update failed.")

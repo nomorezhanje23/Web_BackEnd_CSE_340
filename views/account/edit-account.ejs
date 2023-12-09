@@ -19,10 +19,10 @@
     <div class="rese2"><i>All fields are required!</i></div>
       <form id="registerForm" action="/account/accountupdate" method="post">
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="account_firstname" pattern="[a-zA-Z]+" title="Only letters allowed" value="<% locals.account_firstname %>"  required>
+        <input type="text" id="firstName" name="account_firstname" pattern="[a-zA-Z]+" title="Only letters allowed" value="<%= locals.accountData.account_firstname %>"  required>
   
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="account_lastname"  pattern="[a-zA-Z]+" title="Only letters allowed" value="<% locals.account_lastname %>"  required>
+        <input type="text" id="lastName" name="account_lastname"  pattern="[a-zA-Z]+" title="Only letters allowed" value="<%= locals.accountData.account_lastname %>"  required>
   
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="account_email"  value="<%= locals.account_email %>" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+.\.[a-zA-Z]{2,}$"  required>

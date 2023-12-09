@@ -10,6 +10,7 @@ const utilities = require("../utilities/index")
 const regValidate = require('../utilities/account-validation')
 
 
+
 /*   *******************************************************
  *  Deliver login view
  *  Unit 4, deliver login view activity
@@ -29,6 +30,7 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.get("/",
 utilities.checkLogin,
+//utilities.checkAccount,
 utilities.handleErrors(accountController.buildAccountManagement))
 
 /*   *******************************************************
@@ -78,4 +80,11 @@ router.post(
   utilities.handleErrors(accountController.editAccountPassword)
 )
 
+
+router.use(utilities.checkAccount)
+
+router.get('/inv'), (req, res) => {
+ res.render("./inventory/management")
+}
 module.exports = router;
+
